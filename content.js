@@ -37,7 +37,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                         //kb units, definitely use UL credit
                         if (gap_units == 'KB') {
                             $(ulcred_zap_btn).trigger('click');
-                            surplus_mb -= gap_num / 1024;
+                            surplus_mb -= gap_num / 1000;
                         }
                         //gb,tb,pb units, definitely do not use UL credit
                         else if (gap_units == 'GB' || gap_units == 'TB' || gap_units == 'PB') {
@@ -61,7 +61,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 
                 // WARNINGS
 
-                if (surplus_mb * 1024 < lowerb) {
+                if (surplus_mb * 1000 < lowerb) {
                     alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
                 }
 
@@ -98,13 +98,13 @@ function grab_surplus_ul() {
 
     // Normalize UL credit units to standard MB units
     if (surplus_units == 'KB') {
-        surplus_mb = surplus_num / 1024.0;
+        surplus_mb = surplus_num / 1000.0;
     } else if (surplus_units == 'MB') {
         surplus_mb = surplus_num;
     } else if (surplus_units == 'GB') {
-        surplus_mb = surplus_num * 1024;
+        surplus_mb = surplus_num * 1000;
     } else if (surplus_units == 'TB') {
-        surplus_mb = surplus_num * 1024 * 1024;                    
+        surplus_mb = surplus_num * 1000 * 1000;                    
     }
 
     return surplus_mb;
