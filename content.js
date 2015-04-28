@@ -18,24 +18,12 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                 upperb = parseFloat(message.data.upperb);
 
             $(document).ready(function() {
-                var surplus_ul_cred = $('#cU').text().match(/[0-9]+\.[0-9]{1,2}\s+[a-zA-Z]{2}/)[0],
-                    surplus_num = parseFloat(surplus_ul_cred.split(' ')[0]),
-                    surplus_units = surplus_ul_cred.split(' ').pop(),
-                    surplus_mb = 0;
+                var ud = grab_user_data(),
+                    current_bonus = ud.current_bonus,
+                    surplus_mb = ud.surplus_mb;
 
-                // Normalize UL credit units to standard MB units
-                if (surplus_units == 'KB') {
-                    surplus_mb = surplus_num / 1024.0;
-                } else if (surplus_units == 'MB') {
-                    surplus_mb = surplus_num;
-                } else if (surplus_units == 'GB') {
-                    surplus_mb = surplus_num * 1024;
-                } else if (surplus_units == 'TB') {
-                    surplus_mb = surplus_num * 1024 * 1024;                    
-                }
-
-                var current_bonus = $('#cB').text().match(/[0-9]+\.[0-9]{1,2}/)[0],
-                    current_bonus = parseFloat(current_bonus);
+                // Print out user stats
+                console.log(current_bonus, surplus_mb);
 
                 $('.t1 tbody').children('tr').each(function(i, e) {
                     if(i != 0) {
@@ -71,6 +59,8 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                     }
                 });
 
+                // WARNINGS
+
                 if (surplus_mb * 1024 < lowerb) {
                     alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
                 }
@@ -86,6 +76,39 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
     }
 });
 
+function grab_user_data() {
+    return {
+        current_bonus: grab_bonus(),
+        surplus_mb: grab_surplus_ul()
+    }
+}
+
+function grab_bonus() {
+    var current_bonus = $('#cB').text().match(/[0-9]+\.[0-9]{1,2}/)[0],
+        current_bonus = parseFloat(current_bonus);
+
+    return current_bonus;
+}
+
+function grab_surplus_ul() {
+    var surplus_ul_cred = $('#cU').text().match(/[0-9]+\.[0-9]{1,2}\s+[a-zA-Z]{2}/)[0],
+        surplus_num = parseFloat(surplus_ul_cred.split(' ')[0]),
+        surplus_units = surplus_ul_cred.split(' ').pop(),
+        surplus_mb = 0;
+
+    // Normalize UL credit units to standard MB units
+    if (surplus_units == 'KB') {
+        surplus_mb = surplus_num / 1024.0;
+    } else if (surplus_units == 'MB') {
+        surplus_mb = surplus_num;
+    } else if (surplus_units == 'GB') {
+        surplus_mb = surplus_num * 1024;
+    } else if (surplus_units == 'TB') {
+        surplus_mb = surplus_num * 1024 * 1024;                    
+    }
+
+    return surplus_mb;
+}
 
 //Check jquery version
 // if (typeof jQuery != 'undefined') {  
