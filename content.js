@@ -18,8 +18,8 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                 upperb = parseFloat(message.data.upperb);
 
             $(document).ready(function() {
-                var surplus_ul_cred = $('#cU').text().match(/[0-9]+\.[0-9]{1,2}\s+[a-zA-Z]{2}/),
-                    surplus_num = surplus_ul_cred.split(' ')[0],
+                var surplus_ul_cred = $('#cU').text().match(/[0-9]+\.[0-9]{1,2}\s+[a-zA-Z]{2}/)[0],
+                    surplus_num = parseFloat(surplus_ul_cred.split(' ')[0]),
                     surplus_units = surplus_ul_cred.split(' ').pop(),
                     surplus_mb = 0;
 
@@ -34,7 +34,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                     surplus_mb = surplus_num * 1024 * 1024;                    
                 }
 
-                var current_bonus = $('#cB').text().match(/[0-9]+\.[0-9]{1,2}/),
+                var current_bonus = $('#cB').text().match(/[0-9]+\.[0-9]{1,2}/)[0],
                     current_bonus = parseFloat(current_bonus);
 
                 $('.t1 tbody').children('tr').each(function(i, e) {
@@ -72,7 +72,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
                 });
 
                 if (surplus_mb * 1024 < lowerb) {
-                    alert('Insufficient upload credit to zap all torrents!')
+                    alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
                 }
 
                 if (current_bonus < 0) {
