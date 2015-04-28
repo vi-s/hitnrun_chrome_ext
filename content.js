@@ -20,7 +20,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
       $(document).ready(function() {
         var ud = grab_user_data(),
             current_bonus = ud.current_bonus,
-            urplus_mb = ud.surplus_mb;
+            surplus_mb = ud.surplus_mb;
 
         // Print out user stats
         console.log(current_bonus, surplus_mb);
