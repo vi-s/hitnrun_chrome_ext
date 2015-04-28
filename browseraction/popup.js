@@ -6,19 +6,14 @@ window.onload = function() {
     }
 
     document.getElementById("auto-zap").onclick = function() {
-    	// update_thresholds();
+    	// message -> background page
 		chrome.extension.sendMessage({
-			type: 'update-thresh'
+			type: 'zap-start',
+			data: {
+				lowerb: document.getElementById('ul-cred-min').value,
+				upperb: document.getElementById('ul-cred-max').value		
+			}
 		});
     }
 
 }
-
-function update_thresholds() {
-    // message -> background page
-	chrome.extension.sendMessage({
-		type: 'update-thresh',
-		lowerb: document.getElementById('ul-cred-min'),
-		upperb: document.getElementById('ul-cred-max')
-	});
-};

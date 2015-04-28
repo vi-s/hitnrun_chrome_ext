@@ -1,22 +1,13 @@
-function ThresholdState(lowerb, upperb) {
-	this.lowerb = lowerb;
-	this.upperb = upperb;
-}
-
-var thresh_state = new ThresholdState(0, 0)
-
 // listening for an event / one-time requests
 // coming from the popup
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-	console.log('bg msg rcv');
-	console.log(request)
     switch(request.type) {
-        case "color-divs":
-            colorDivs();
-           	break;
-        case "update-thresh":
-        	console.log('lb: ', request.lowerb, ' ub: ', request.upperb);
+        case "zap-start":
+        	start_zap(request.data.lowerb, request.data.upperb);
         	break;
+        // case "color-divs":
+        //     colorDivs();
+        //    	break;
         default:
         	break;
     }
@@ -24,11 +15,26 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 // send a message to the content script
-var colorDivs = function() {
+
+function start_zap(lowerb, upperb) {
     chrome.tabs.getSelected(null, function(tab){
-        chrome.tabs.sendMessage(tab.id, {type: "colors-div", color: "#F00"});
+        chrome.tabs.sendMessage(tab.id, {
+        	type: "start-zap",
+        	data: {
+        		lowerb: lowerb,
+        		upperb: upperb
+        	}
+        });
         // setting a badge
-        chrome.browserAction.setBadgeText({text: "red!"});
-    });
+        chrome.browserAction.setBadgeText({text: "zap'd!"});
+    });	
 }
- 
+
+// var colorDivs = function() {
+//     chrome.tabs.getSelected(null, function(tab){
+//         chrome.tabs.sendMessage(tab.id, {type: "colors-div", color: "#F00"});
+//         // setting a badge
+//         chrome.browserAction.setBadgeText({text: "red!"});
+//     });
+// }
+//  
