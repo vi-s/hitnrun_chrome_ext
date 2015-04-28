@@ -25,6 +25,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
         // Print out user stats
         console.log(current_bonus, surplus_mb);
 
+        // CORE automated zap handling
         $('.t1 tbody').children('tr').each(function(i, e) {
           if(i != 0) {
             var row = $(e).children('td'),
@@ -60,7 +61,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
           }
         });
 
-        // WARNINGS
+        // WARNINGS for insufficient funds
         if (surplus_mb * 1000 < lowerb) {
           alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
         }
