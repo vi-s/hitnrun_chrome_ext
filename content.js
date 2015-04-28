@@ -1,5 +1,5 @@
 chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
-    console.log('content msg rcv');
+    // console.log('content msg rcv');
     switch(message.type) {
         // case "colors-div":
         //     var divs = document.querySelectorAll("div");
@@ -12,13 +12,26 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
         //     }
         //     break;
         case "start-zap":
-            console.log('content msg ', message);
+            var lowerb = message.data.lowerb,
+                upperb = message.data.upperb;
+
+            $(document).ready(function() {
+
+                $('.t1 tbody').children('tr').each(function(i, e) {
+                    if(i != 0) {
+                        console.log(e);
+                    }
+                });
+
+            });
+
+
+            console.log('content msg1 ', message);
             break;
         break;
     }
 });
 
-// function getThresholds
 
 //Check jquery version
 // if (typeof jQuery != 'undefined') {  
