@@ -29,6 +29,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
           if(i != 0) {
             var row = $(e).children('td'),
               gap = $(row[4]).text(),
+              //the gap num is how much we actually pay to remove the hit'n'run
               gap_num = parseFloat(gap.split(' ')[0]),
               gap_units = gap.split(' ').pop().toUpperCase(),
               bonus_zap_btn = $(row[10]).find("[type='submit']"),
