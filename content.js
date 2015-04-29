@@ -72,10 +72,12 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
       }
       //case for mb units. must test gap_num
       else {
-        if (gap_num <= upperb && !lowerb_exceeded) {
-          // use UL cred
-          $(ulcred_zap_btn).trigger('click'); 
-          surplus_mb -= gap_num;
+        if (gap_num <= upperb) {
+          if (!lowerb_exceeded) {
+            // use UL cred
+            $(ulcred_zap_btn).trigger('click'); 
+            surplus_mb -= gap_num;            
+          }
         } else {
           // use bonus pts
           $(bonus_zap_btn).trigger('click');
