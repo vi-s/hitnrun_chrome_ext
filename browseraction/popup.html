@@ -3,20 +3,30 @@
 
 <div>
 
-	<h3>
-		Upload Credit Zap Thresholds
-	</h3>
+	<h2>
+		Smart Zapper for IPT
+	</h2>
 
 	<div>
-		<label for="ul-cred-max">Upper Bound on UL Credit (MB) Required per torrent: </label>
+		<label for="ul-cred-max"> Use <b>upload credit</b> to auto zap torrents that require &lt; </label>
 		<input type="text" id="ul-cred-max" value="300">
+		<br>
+		(MB) upload credit.
+	</div>
+
+	<br>
+
+	<div>
+		All other torrents will be zapped using <b>bonus points</b>
 	</div>
 	
 	<br>	
 
 	<div>
-		<label for="ul-cred-min">Lower Bound on Surplus UL Credit (GB) Remaining in Acct: </label>
+		<label for="ul-cred-min">Lower bound on <b>remaining surplus upload credit</b> (GB): </label>
 		<input type="text" id="ul-cred-min" value="5">
+		<br>
+		You are guarenteed the above amount to be left in your account.
 	</div>
 
 	<br>

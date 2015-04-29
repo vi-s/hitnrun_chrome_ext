@@ -22,7 +22,9 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 });
 
 function handle_startzap(message) {
-  var lowerb = parseFloat(message.data.lowerb),
+      // min ul credit required to remain
+  var lowerb = parseFloat(message.data.lowerb), 
+      // max UL credit required to zap torrent
       upperb = parseFloat(message.data.upperb);
 
   $(document).ready(function() {
@@ -33,10 +35,12 @@ function handle_startzap(message) {
 };
 
 
-
+// Parse and click all the Hit and Run warnings intelligently
+// according to user inputs.
 function parse_and_click_hnrs(ud, lowerb, upperb) {
   var current_bonus = ud.current_bonus,
-      surplus_mb = ud.surplus_mb;
+      surplus_mb = ud.surplus_mb,
+      lowerb_exceeded = false;
 
   // Print out user stats
   console.log(current_bonus, surplus_mb);
@@ -51,8 +55,13 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
         bonus_zap_btn = $(row[10]).find("[type='submit']"),
         ulcred_zap_btn = $(row[11]).find("[type='submit']");
 
+      // check for exceeding lowerb
+      if (surplus_mb / 1000 < lowerb) {
+        lowerb_exceeded = true;
+      }
+
       //kb units, definitely use UL credit
-      if (gap_units == 'KB') {
+      if (gap_units == 'KB' && !lowerb_exceeded) {
         $(ulcred_zap_btn).trigger('click');
         surplus_mb -= gap_num / 1000;
       }
@@ -63,7 +72,7 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
       }
       //case for mb units. must test gap_num
       else {
-        if (gap_num <= upperb) {
+        if (gap_num <= upperb && !lowerb_exceeded) {
           // use UL cred
           $(ulcred_zap_btn).trigger('click'); 
           surplus_mb -= gap_num;
@@ -82,7 +91,7 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
 
 // WARNINGS in case we overrand bonus amt or UL lower bounds
 function check_and_display_warnings(surplus_mb, lowerb, current_bonus) {
-  if (surplus_mb * 1000 < lowerb) {
+  if (surplus_mb / 1000 < lowerb) {
     alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
   }
 
