@@ -3,8 +3,7 @@
     "version": "0.0.1",
     "manifest_version": 2,
     "description" : "Automating the hit and run zapping process on IPT",
-    //{ "16": "icons/16x16.png", "48": "icons/48x48.png", "128": "icons/128x128.png" }
-    "icons": { "16": "icons/16x16.ico" },
+    "icons": { "16": "icons/16x16.ico", "48": "icons/48x48.png", "128": "icons/128x128.png" },
     "browser_action": {
         "default_icon": { "19": "icons/19x19.png", "38": "icons/38x38.png" },
         "default_title": "Click to toggle automation panel",
