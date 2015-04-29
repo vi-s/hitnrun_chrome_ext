@@ -61,30 +61,39 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
       }
 
       //kb units, definitely use UL credit
-      if (gap_units == 'KB' && !lowerb_exceeded) {
-        $(ulcred_zap_btn).trigger('click');
-        surplus_mb -= gap_num / 1000;
+      if (gap_units == 'KB') {
+        click_ulcred_btn(ulcred_zap_btn, gap_num / 1000)
       }
       //gb,tb,pb units, definitely do not use UL credit
       else if (gap_units == 'GB' || gap_units == 'TB' || gap_units == 'PB') {
-        $(bonus_zap_btn).trigger('click');
-        current_bonus -= 50;
+        click_bonus_btn(bonus_zap_btn);
       }
       //case for mb units. must test gap_num
       else {
+        // use UL cred
         if (gap_num <= upperb) {
-          if (!lowerb_exceeded) {
-            // use UL cred
-            $(ulcred_zap_btn).trigger('click'); 
-            surplus_mb -= gap_num;            
-          }
+          click_ulcred_btn(ulcred_zap_btn, gap_num);
         } else {
           // use bonus pts
-          $(bonus_zap_btn).trigger('click');
-          current_bonus -= 50;
+          click_bonus_btn(bonus_zap_btn);
         }
       }
     }
+
+    function click_ulcred_btn(ulcred_zap_btn, dec_amt) {
+      if (!lowerb_exceeded) {
+        $(ulcred_zap_btn).trigger('click'); 
+        surplus_mb -= dec_amt;            
+      }
+    }
+
+    function click_bonus_btn(bonus_zap_btn) {
+      if (current_bonus >= 50) {
+        $(bonus_zap_btn).trigger('click');
+        current_bonus -= 50;
+      }
+    }
+
   });
 
   // we are okay calling this here since the .each() above will not be async
