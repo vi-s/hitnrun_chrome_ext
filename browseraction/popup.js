@@ -11,7 +11,7 @@ window.onload = function() {
 
     // validate input
     if(!isNumber(lowerb) || !isNumber(upperb)) {
-       alert('Invalid integer');
+       alert('Invalid number format, only ints and floats');
        return;
     }
 
