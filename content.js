@@ -48,12 +48,12 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
   $('.t1 tbody').children('tr').each(function(i, e) {
     if(i != 0) {
       var row = $(e).children('td'),
-        gap = $(row[4]).text(),
-        //the gap num is how much we actually pay to remove the hit'n'run
-        gap_num = parseFloat(gap.split(' ')[0]),
-        gap_units = gap.split(' ').pop().toUpperCase(),
-        bonus_zap_btn = $(row[10]).find("[type='submit']"),
-        ulcred_zap_btn = $(row[11]).find("[type='submit']");
+          gap = $(row[4]).text(),
+          //the gap num is how much we actually pay to remove the hit'n'run
+          gap_num = parseFloat(gap.split(' ')[0]),
+          gap_units = gap.split(' ').pop().toUpperCase(),
+          bonus_zap_btn = $(row[10]).find("[type='submit']"),
+          ulcred_zap_btn = $(row[11]).find("[type='submit']");
 
       // check for exceeding lowerb
       if (surplus_mb / 1000 < lowerb) {
@@ -92,7 +92,7 @@ function parse_and_click_hnrs(ud, lowerb, upperb) {
 // WARNINGS in case we overrand bonus amt or UL lower bounds
 function check_and_display_warnings(surplus_mb, lowerb, current_bonus) {
   if (surplus_mb / 1000 < lowerb) {
-    alert('Upload credit below lower bound! Insufficient upload to zap all torrents.')
+    alert('Upload credit below lower bound! Insufficient upload credit to zap all torrents.')
   }
 
   if (current_bonus < 0) {
