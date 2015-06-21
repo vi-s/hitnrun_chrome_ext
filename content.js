@@ -37,10 +37,17 @@ function Zapper(lowerb, upperb) {
 
 // Zapper prototype methods
 Zapper.prototype = {
+  // Init user data values, and start zap event chain
   init_zap: function() {
     var _this = this;
     $(document).ready(function() {
-      _this.ud = _this.grab_user_data();
+      var ud = _this.grab_user_data();
+      this.current_bonus = ud.current_bonus;
+      this.surplus_mb = ud.surplus_mb;
+      this.lowerb_exceeded = false;
+
+      console.log('Current Bonus:', this.current_bonus, 
+        'Surplus MB:', this.surplus_mb);
       // Perform automated tasks
       _this.process_hnrs();
     });    
@@ -49,12 +56,6 @@ Zapper.prototype = {
   // according to user inputs.
   process_hnrs: function() {
     var _this = this;
-    this.current_bonus = this.ud.current_bonus;
-    this.surplus_mb = this.ud.surplus_mb;
-    this.lowerb_exceeded = false;
-
-    console.log('Current Bonus:', this.current_bonus, 
-      'Surplus MB:', this.surplus_mb);
 
     $('.t1 tbody').children('tr').each(function(i, e) {
       // process all non-header rows
