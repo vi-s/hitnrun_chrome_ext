@@ -54,9 +54,8 @@ Zapper.prototype = {
       // callback not necessary for post stats, since there is no
       // async activity.
       console.log('Post Zap Stats --')
-      var post_ud = _this.grab_user_data();
-      console.log('Current Bonus:', post_ud.current_bonus, 
-        'Surplus MB:', post_ud.surplus_mb);
+      console.log('Current Bonus:', _this.current_bonus, 
+        'Surplus MB:', _this.surplus_mb);
     });    
   },
   // Parse and click all the Hit and Run warnings intelligently
