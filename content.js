@@ -125,7 +125,7 @@ Zapper.prototype = {
     if (this.surplus_mb / 1000 < this.lowerb) {
       alert('Upload credit below lower bound! Insufficient upload credit to zap all torrents.')
     }
-    
+
     if (this.current_bonus < 0) {
       alert('Insufficient bonus credit to zap all torrents!')
     }
