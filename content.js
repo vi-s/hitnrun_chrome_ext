@@ -46,8 +46,13 @@ Zapper.prototype = {
       this.surplus_mb = ud.surplus_mb;
       this.lowerb_exceeded = false;
 
+      console.log('Pre Zap Stats --')
       console.log('Current Bonus:', this.current_bonus, 
         'Surplus MB:', this.surplus_mb);
+      console.log('Post Zap Stats --')
+      var post_ud = _this.grab_user_data();
+      console.log('Current Bonus:', post_ud.current_bonus, 
+        'Surplus MB:', post_ud.surplus_mb);      
       // Perform automated tasks
       _this.process_hnrs();
     });    
