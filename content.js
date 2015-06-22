@@ -42,13 +42,13 @@ Zapper.prototype = {
     var _this = this;
     $(document).ready(function() {
       var ud = _this.grab_user_data();
-      this.current_bonus = ud.current_bonus;
-      this.surplus_mb = ud.surplus_mb;
-      this.lowerb_exceeded = false;
+      _this.current_bonus = ud.current_bonus;
+      _this.surplus_mb = ud.surplus_mb;
+      _this.lowerb_exceeded = false;
 
       console.log('Pre Zap Stats --')
-      console.log('Current Bonus:', this.current_bonus, 
-        'Surplus MB:', this.surplus_mb);
+      console.log('Current Bonus:', _this.current_bonus, 
+        'Surplus MB:', _this.surplus_mb);
       // Start zap event chain
       _this.process_hnrs();
       // callback not necessary for post stats, since there is no
@@ -125,7 +125,7 @@ Zapper.prototype = {
     if (this.surplus_mb / 1000 < this.lowerb) {
       alert('Upload credit below lower bound! Insufficient upload credit to zap all torrents.')
     }
-
+    
     if (this.current_bonus < 0) {
       alert('Insufficient bonus credit to zap all torrents!')
     }
