@@ -49,12 +49,14 @@ Zapper.prototype = {
       console.log('Pre Zap Stats --')
       console.log('Current Bonus:', this.current_bonus, 
         'Surplus MB:', this.surplus_mb);
+      // Start zap event chain
+      _this.process_hnrs();
+      // callback not necessary for post stats, since there is no
+      // async activity.
       console.log('Post Zap Stats --')
       var post_ud = _this.grab_user_data();
       console.log('Current Bonus:', post_ud.current_bonus, 
-        'Surplus MB:', post_ud.surplus_mb);      
-      // Perform automated tasks
-      _this.process_hnrs();
+        'Surplus MB:', post_ud.surplus_mb);
     });    
   },
   // Parse and click all the Hit and Run warnings intelligently
